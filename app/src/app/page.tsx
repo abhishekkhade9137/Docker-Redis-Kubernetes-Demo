@@ -38,12 +38,12 @@ function Badge({ type }: { type: 'cache' | 'database' }) {
         fontWeight: 700,
         letterSpacing: '0.04em',
         textTransform: 'uppercase',
-        background: type === 'cache' ? 'rgba(52,211,153,0.18)' : 'rgba(251,191,36,0.18)',
-        color: type === 'cache' ? '#34d399' : '#fbbf24',
-        border: `1px solid ${type === 'cache' ? '#34d39940' : '#fbbf2440'}`,
+        background: type === 'cache' ? '#ffffff' : 'transparent',
+        color: type === 'cache' ? '#000000' : '#ffffff',
+        border: `1px solid #ffffff`,
       }}
     >
-      <span style={{ fontSize: '0.6rem' }}>●</span>
+      <span style={{ fontSize: '0.6rem' }}>{type === 'cache' ? '●' : '○'}</span>
       {type === 'cache' ? 'CACHE HIT' : 'DB MISS → CACHED'}
     </span>
   );
@@ -52,17 +52,17 @@ function Badge({ type }: { type: 'cache' | 'database' }) {
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div style={{
-      background: 'rgba(255,255,255,0.04)',
-      border: '1px solid rgba(255,255,255,0.08)',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.15)',
       borderRadius: '14px',
       padding: '18px 20px',
       display: 'flex',
       flexDirection: 'column',
       gap: '4px',
     }}>
-      <span style={{ fontSize: '0.72rem', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</span>
-      <span style={{ fontSize: '1.6rem', fontWeight: 700, color: '#f9fafb', lineHeight: 1.1 }}>{value}</span>
-      {sub && <span style={{ fontSize: '0.72rem', color: '#4b5563' }}>{sub}</span>}
+      <span style={{ fontSize: '0.72rem', color: '#888888', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</span>
+      <span style={{ fontSize: '1.6rem', fontWeight: 700, color: '#ffffff', lineHeight: 1.1 }}>{value}</span>
+      {sub && <span style={{ fontSize: '0.72rem', color: '#666666' }}>{sub}</span>}
     </div>
   );
 }
@@ -121,19 +121,19 @@ export default function Home() {
     : '—';
 
   return (
-    <main style={{ minHeight: '100vh', background: '#090b10', fontFamily: "'Inter', sans-serif", color: '#f9fafb' }}>
+    <main style={{ minHeight: '100vh', background: '#000000', fontFamily: "'Inter', sans-serif", color: '#ffffff' }}>
       {/* Grid background */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 0,
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
         pointerEvents: 'none',
       }} />
 
-      {/* Glow blobs */}
+      {/* Glow blobs (subtle white) */}
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '-120px', left: '-120px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', bottom: '-100px', right: '-100px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', top: '-120px', left: '-120px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', bottom: '-100px', right: '-100px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)' }} />
       </div>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto', padding: '40px 24px 80px' }}>
@@ -142,16 +142,16 @@ export default function Home() {
         <div style={{ marginBottom: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <div style={{ display: 'flex', gap: '8px' }}>
-              {['#6366f1', '#34d399', '#f59e0b'].map((c, i) => (
-                <div key={i} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c, boxShadow: `0 0 8px ${c}` }} />
+              {['#ffffff', '#bbbbbb', '#777777'].map((c, i) => (
+                <div key={i} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c }} />
               ))}
             </div>
-            <span style={{ fontSize: '0.7rem', color: '#4b5563', fontFamily: 'monospace', letterSpacing: '0.1em' }}>CLOUD-NATIVE DEMO</span>
+            <span style={{ fontSize: '0.7rem', color: '#888888', fontFamily: 'monospace', letterSpacing: '0.1em' }}>CLOUD-NATIVE DEMO</span>
           </div>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, background: 'linear-gradient(135deg, #e0e7ff 0%, #818cf8 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: '#ffffff' }}>
             Redis · Docker · Kubernetes
           </h1>
-          <p style={{ color: '#6b7280', marginTop: '8px', fontSize: '0.95rem' }}>
+          <p style={{ color: '#aaaaaa', marginTop: '8px', fontSize: '0.95rem' }}>
             Live cache hit/miss demo with real Redis metrics
           </p>
         </div>
@@ -166,13 +166,13 @@ export default function Home() {
 
         {/* Cache Demo */}
         <div style={{
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'rgba(255,255,255,0.02)',
+          border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: '20px',
           padding: '28px',
           marginBottom: '20px',
         }}>
-          <h2 style={{ margin: '0 0 20px', fontSize: '1rem', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <h2 style={{ margin: '0 0 20px', fontSize: '1rem', fontWeight: 600, color: '#cccccc', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             Cache Lookup
           </h2>
 
@@ -186,8 +186,8 @@ export default function Home() {
               placeholder="Cache key, e.g. user:1"
               style={{
                 flex: 1, minWidth: '200px', padding: '12px 16px',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '10px', color: '#f9fafb', fontSize: '0.95rem',
+                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '10px', color: '#ffffff', fontSize: '0.95rem',
                 outline: 'none', fontFamily: 'monospace',
               }}
             />
@@ -196,10 +196,10 @@ export default function Home() {
               onClick={handleFetch}
               disabled={loading}
               style={{
-                padding: '12px 24px', borderRadius: '10px', border: 'none',
-                background: loading ? 'rgba(99,102,241,0.4)' : 'linear-gradient(135deg, #6366f1, #4f46e5)',
-                color: '#fff', fontWeight: 700, fontSize: '0.9rem', cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'opacity 0.2s', letterSpacing: '0.02em',
+                padding: '12px 24px', borderRadius: '10px', border: '1px solid #ffffff',
+                background: loading ? '#333333' : '#ffffff',
+                color: loading ? '#aaaaaa' : '#000000', fontWeight: 700, fontSize: '0.9rem', cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s', letterSpacing: '0.02em',
               }}
             >
               {loading ? 'Fetching…' : 'GET'}
@@ -210,8 +210,8 @@ export default function Home() {
               disabled={busting}
               style={{
                 padding: '12px 20px', borderRadius: '10px',
-                border: '1px solid rgba(239,68,68,0.3)',
-                background: 'rgba(239,68,68,0.08)', color: '#f87171',
+                border: '1px solid rgba(255,255,255,0.3)',
+                background: 'transparent', color: '#ffffff',
                 fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer',
                 transition: 'all 0.2s',
               }}
@@ -228,9 +228,9 @@ export default function Home() {
                 onClick={() => setKey(k)}
                 style={{
                   padding: '4px 12px', borderRadius: '6px', fontSize: '0.78rem',
-                  background: key === k ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
-                  border: `1px solid ${key === k ? 'rgba(99,102,241,0.5)' : 'rgba(255,255,255,0.08)'}`,
-                  color: key === k ? '#a5b4fc' : '#6b7280', cursor: 'pointer', fontFamily: 'monospace',
+                  background: key === k ? '#ffffff' : 'transparent',
+                  border: `1px solid ${key === k ? '#ffffff' : 'rgba(255,255,255,0.2)'}`,
+                  color: key === k ? '#000000' : '#aaaaaa', cursor: 'pointer', fontFamily: 'monospace',
                   transition: 'all 0.15s',
                 }}
               >
@@ -242,25 +242,25 @@ export default function Home() {
           {/* Result card */}
           {result && (
             <div style={{
-              background: result.source === 'cache' ? 'rgba(52,211,153,0.06)' : 'rgba(251,191,36,0.06)',
-              border: `1px solid ${result.source === 'cache' ? 'rgba(52,211,153,0.2)' : 'rgba(251,191,36,0.2)'}`,
+              background: 'rgba(255,255,255,0.05)',
+              border: `1px solid rgba(255,255,255,0.2)`,
               borderRadius: '12px',
               padding: '20px',
               animation: pulse ? 'fadeIn 0.3s ease' : 'none',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
                 <Badge type={result.source} />
-                <div style={{ display: 'flex', gap: '16px', fontSize: '0.82rem', color: '#6b7280' }}>
+                <div style={{ display: 'flex', gap: '16px', fontSize: '0.82rem', color: '#aaaaaa' }}>
                   <span>⚡ {result.latencyMs}ms</span>
                   <span>⏱ TTL: {result.ttl}s</span>
                 </div>
               </div>
-              <div style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#9ca3af', marginBottom: '6px' }}>key: <span style={{ color: '#c4b5fd' }}>{result.key}</span></div>
-              <div style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#9ca3af', wordBreak: 'break-all' }}>
-                value: <span style={{ color: '#f9fafb' }}>{result.value}</span>
+              <div style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#888888', marginBottom: '6px' }}>key: <span style={{ color: '#ffffff' }}>{result.key}</span></div>
+              <div style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#888888', wordBreak: 'break-all' }}>
+                value: <span style={{ color: '#ffffff' }}>{result.value}</span>
               </div>
               {result.source === 'database' && (
-                <div style={{ marginTop: '12px', fontSize: '0.78rem', color: '#6b7280', fontStyle: 'italic' }}>
+                <div style={{ marginTop: '12px', fontSize: '0.78rem', color: '#888888', fontStyle: 'italic' }}>
                   ↑ Next request for this key will be a cache hit (30s TTL)
                 </div>
               )}
@@ -272,12 +272,12 @@ export default function Home() {
         {history.length > 0 && (
           <div style={{
             background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '16px',
             padding: '20px 24px',
             marginBottom: '20px',
           }}>
-            <h2 style={{ margin: '0 0 16px', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <h2 style={{ margin: '0 0 16px', fontSize: '0.85rem', fontWeight: 600, color: '#cccccc', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Request History
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -291,13 +291,14 @@ export default function Home() {
                 }}>
                   <span style={{
                     width: '8px', height: '8px', borderRadius: '50%', flexShrink: 0,
-                    background: h.source === 'cache' ? '#34d399' : '#fbbf24',
+                    background: h.source === 'cache' ? '#ffffff' : 'transparent',
+                    border: '1px solid #ffffff'
                   }} />
-                  <span style={{ fontFamily: 'monospace', color: '#c4b5fd', minWidth: '130px' }}>{h.key}</span>
-                  <span style={{ color: h.source === 'cache' ? '#34d399' : '#fbbf24', fontSize: '0.75rem', fontWeight: 700 }}>
+                  <span style={{ fontFamily: 'monospace', color: '#eeeeee', minWidth: '130px' }}>{h.key}</span>
+                  <span style={{ color: '#ffffff', fontSize: '0.75rem', fontWeight: 700 }}>
                     {h.source === 'cache' ? 'HIT' : 'MISS'}
                   </span>
-                  <span style={{ color: '#4b5563', marginLeft: 'auto' }}>{h.latencyMs}ms</span>
+                  <span style={{ color: '#888888', marginLeft: 'auto' }}>{h.latencyMs}ms</span>
                 </div>
               ))}
             </div>
@@ -308,12 +309,12 @@ export default function Home() {
         {stats && (
           <div style={{
             background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '16px',
             padding: '20px 24px',
             marginBottom: '20px',
           }}>
-            <h2 style={{ margin: '0 0 16px', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <h2 style={{ margin: '0 0 16px', fontSize: '0.85rem', fontWeight: 600, color: '#cccccc', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Redis Live Info
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '10px' }}>
@@ -326,8 +327,8 @@ export default function Home() {
                 ['Misses', stats.redis.keyspaceMisses],
               ].map(([label, val]) => (
                 <div key={label} style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px' }}>
-                  <div style={{ fontSize: '0.7rem', color: '#4b5563', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '4px' }}>{label}</div>
-                  <div style={{ fontFamily: 'monospace', fontSize: '1rem', color: '#e5e7eb', fontWeight: 600 }}>{val}</div>
+                  <div style={{ fontSize: '0.7rem', color: '#888888', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '4px' }}>{label}</div>
+                  <div style={{ fontFamily: 'monospace', fontSize: '1rem', color: '#ffffff', fontWeight: 600 }}>{val}</div>
                 </div>
               ))}
             </div>
@@ -345,18 +346,18 @@ export default function Home() {
           ].map(({ icon, title, desc }) => (
             <div key={title} style={{
               padding: '18px', borderRadius: '14px',
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid rgba(255,255,255,0.1)',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{icon}</div>
-              <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '4px' }}>{title}</div>
-              <div style={{ fontSize: '0.75rem', color: '#6b7280', lineHeight: 1.5 }}>{desc}</div>
+              <div style={{ fontSize: '1.8rem', marginBottom: '8px', filter: 'grayscale(100%)' }}>{icon}</div>
+              <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '4px', color: '#ffffff' }}>{title}</div>
+              <div style={{ fontSize: '0.75rem', color: '#aaaaaa', lineHeight: 1.5 }}>{desc}</div>
             </div>
           ))}
         </div>
 
-        <p style={{ textAlign: 'center', color: '#374151', fontSize: '0.75rem', marginTop: '40px' }}>
+        <p style={{ textAlign: 'center', color: '#555555', fontSize: '0.75rem', marginTop: '40px' }}>
           Auto-refreshes every 5s · Visit counter stored in Redis
         </p>
       </div>
@@ -366,7 +367,7 @@ export default function Home() {
         * { box-sizing: border-box; }
         body { margin: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-        input:focus { border-color: rgba(99,102,241,0.5) !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+        input:focus { border-color: #ffffff !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.2); }
         button:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
       `}</style>
     </main>
