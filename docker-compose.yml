@@ -1,0 +1,43 @@
+services:
+  # ── Redis ──────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: cn_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - cn_net
+
+  # ── Next.js App ────────────────────────────────────────────────────────────
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: cn_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - cn_net
+
+volumes:
+  redis_data:
+
+networks:
+  cn_net:
+    driver: bridge

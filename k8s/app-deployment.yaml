@@ -1,0 +1,67 @@
+# ─── App Deployment ───────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-native-app
+  namespace: cloud-native
+  labels:
+    app: cloud-native-app
+spec:
+  replicas: 3                      # 3 pods for HA
+  selector:
+    matchLabels:
+      app: cloud-native-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0            # zero-downtime rollouts
+  template:
+    metadata:
+      labels:
+        app: cloud-native-app
+    spec:
+      containers:
+        - name: app
+          image: cloud-native-app:latest   # replace with your registry image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_URL
+              value: "redis://redis.cloud-native.svc.cluster.local:6379"
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /api/stats
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/stats
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+# ─── App Service ──────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-native-app
+  namespace: cloud-native
+spec:
+  selector:
+    app: cloud-native-app
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
